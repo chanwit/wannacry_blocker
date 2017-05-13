@@ -9,6 +9,9 @@
       <Title Value="block_wannacry"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
+      <XPManifest>
+        <ExecutionLevel Value="requireAdministrator"/>
+      </XPManifest>
       <Icon Value="0"/>
     </General>
     <i18n>

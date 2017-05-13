@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Menus, Windows;
+  StdCtrls, Menus, Windows, registry;
 
 type
 
@@ -76,7 +76,19 @@ begin
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
+var r: TRegistry;
 begin
+  r := TRegistry.Create;
+  try
+    r.RootKey := HKEY_LOCAL_MACHINE;
+    if r.OpenKey('\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters', false) then begin
+        r.WriteInteger('SMB1', 0);
+    end else begin
+      ShowMessage('Disabling SMB version 1. Please run again as Administrator');
+    end;
+  finally
+    r.Free;
+  end;
   IsSingleInstance('MsWinZonesCacheCounterMutexA');
   TrayIcon1.Visible := True;
 end;
