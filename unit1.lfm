@@ -1,13 +1,15 @@
 object Form1: TForm1
   Left = 570
-  Height = 356
+  Height = 406
   Top = 304
-  Width = 427
+  Width = 483
   BorderStyle = bsToolWindow
   Caption = 'Block WannaCry / WannaDecrypt0r'
-  ClientHeight = 356
-  ClientWidth = 427
+  ClientHeight = 406
+  ClientWidth = 483
+  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
+  OnWindowStateChange = FormWindowStateChange
   Position = poScreenCenter
   ShowInTaskBar = stNever
   LCLVersion = '1.6.4.0'
@@ -23,7 +25,7 @@ object Form1: TForm1
   object Button1: TButton
     Left = 20
     Height = 25
-    Top = 312
+    Top = 368
     Width = 75
     Caption = 'Minimize'
     OnClick = Button1Click
@@ -31,16 +33,20 @@ object Form1: TForm1
   end
   object Memo1: TMemo
     Left = 20
-    Height = 256
+    Height = 320
     Top = 40
-    Width = 388
+    Width = 444
     Lines.Strings = (
-      'วิธีใช้: เปิดโปรแกรมค้างไว้'
+      'วิธีใช้: '
+      '1. เปิดโปรแกรมค้างไว้ (ปิดได้ที่ tray icon)'
+      '2. ใส่โปรแกรมไว้ใน Startup Folder '
       ''
       'โปรแกรมทำงานโดยการสร้าง Mutex ชื่อ'
       '  "MsWinZonesCacheCounterMutexA"'
       'แบบ global ที่สามารถเข้าถึงได้จากทุก process ขึ้นมาในระบบเพื่อหลอกไม่ให้ '
       'malware WannaCry / WannaDecryptOr ทำงาน'
+      ''
+      '** โปรแกรมนี้ไม่สามารถกำจัด malware ได้ ทำได้เพียงป้องกันไม่ให้ malware ทำงาน**'
       ''
       'มีนักวิเคราะห์ด้านความปลอดภัยพบว่า code ภายในของ malware ตัวนี้มีการ'
       'ตรวจสอบค่า Mutex ดังกล่าว ถ้าพบจะตัว malware จะไม่เริ่มทำงาน'
@@ -4343,6 +4349,7 @@ object Form1: TForm1
       8001AC418001AC410000AC410000AC410000AC410000AC410000AC410000AC41
       8001AC418001AC41C003AC41E007AC41F01FAC41
     }
+    OnDblClick = TrayIcon1DblClick
     left = 168
     top = 152
   end

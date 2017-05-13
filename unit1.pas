@@ -20,8 +20,11 @@ type
     StaticText1: TStaticText;
     TrayIcon1: TTrayIcon;
     procedure Button1Click(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
+    procedure FormWindowStateChange(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
+    procedure TrayIcon1DblClick(Sender: TObject);
   private
     { private declarations }
   public
@@ -78,13 +81,35 @@ begin
   TrayIcon1.Visible := True;
 end;
 
+procedure TForm1.FormWindowStateChange(Sender: TObject);
+begin
+  if Form1.WindowState = wsMinimized then begin
+      form1.WindowState := wsNormal;
+      form1.Hide;
+      Form1.ShowInTaskBar := stNever;
+  end;
+end;
+
 procedure TForm1.MenuItem2Click(Sender: TObject);
 begin
   Application.Terminate;
 end;
 
+procedure TForm1.TrayIcon1DblClick(Sender: TObject);
+begin
+  Form1.Show;
+  Form1.ShowInTaskBar := stDefault;
+  Application.Restore;
+end;
+
 procedure TForm1.Button1Click(Sender: TObject);
 begin
+  Application.Minimize;
+end;
+
+procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: boolean);
+begin
+  CanClose:=false;
   Application.Minimize;
 end;
 
