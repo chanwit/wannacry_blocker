@@ -6,20 +6,35 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Menus, Windows, registry;
+  StdCtrls, Menus, ComCtrls, MaskEdit, Spin, AsyncProcess, Windows, registry,
+  process;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
+    AsyncProcess1: TAsyncProcess;
     Button1: TButton;
+    Button2: TButton;
+    Label1: TLabel;
     Memo1: TMemo;
+    Memo2: TMemo;
     MenuItem2: TMenuItem;
+    PageControl1: TPageControl;
     PopupMenu1: TPopupMenu;
+    SpinEdit1: TSpinEdit;
+    SpinEdit2: TSpinEdit;
+    SpinEdit3: TSpinEdit;
+    SpinEdit4: TSpinEdit;
     StaticText1: TStaticText;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
     TrayIcon1: TTrayIcon;
+    procedure AsyncProcess1ReadData(Sender: TObject);
+    procedure AsyncProcess1Terminate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormWindowStateChange(Sender: TObject);
@@ -117,6 +132,52 @@ end;
 procedure TForm1.Button1Click(Sender: TObject);
 begin
   Application.Minimize;
+end;
+
+procedure TForm1.AsyncProcess1ReadData(Sender: TObject);
+var
+  s: string;
+  b: dword;
+begin
+  s := '';
+  b := AsyncProcess1.NumBytesAvailable;
+  if b >0 then begin
+      setlength(s, b);
+      AsyncProcess1.Output.Read(s[1], b);
+      Memo2.Text := Memo2.Text + s;
+  end;
+end;
+
+procedure TForm1.AsyncProcess1Terminate(Sender: TObject);
+begin
+  Memo2.Lines.BeginUpdate;
+  if AsyncProcess1.ExitStatus = 1 then begin
+      Memo2.Text:='มีข้อผิดพลาดระหว่างการตรวจสอบ';
+  end else if AsyncProcess1.ExitStatus = 0 then begin
+      Memo2.Text:='ไม่พบช่องโหว่ EternalBlue';
+  end else if AsyncProcess1.ExitStatus = 99 then begin
+      Memo2.Text:='ไม่สามารถตรวจสอบได้ เป็นไปได้ว่า SMBv1 ถูกปิดแล้ว';
+  end else if AsyncProcess1.ExitStatus = 100 then begin
+      Memo2.Text:='พบช่องโหว่ ETERNALBLUE !!';
+  end else if AsyncProcess1.ExitStatus = 200 then begin
+      Memo2.Text:='พบช่องโหว่ ETERNALBLUE และ DoublePulsar !!';
+  end;
+  Memo2.Text := Memo2.Text + #13#10#13#10;
+  AsyncProcess1ReadData(Sender);
+  Memo2.Lines.EndUpdate;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+  AsyncProcess1.Options := [poUsePipes, poStderrToOutPut];
+  AsyncProcess1.ShowWindow := swoHIDE;
+  AsyncProcess1.CurrentDirectory := ExtractFilePath(Application.ExeName);
+  AsyncProcess1.Executable:='smb_ms17_010.exe';
+  AsyncProcess1.Parameters.Text := SpinEdit1.Text + '.' +
+                        SpinEdit2.Text + '.' +
+                        SpinEdit3.Text + '.' +
+                        SpinEdit4.Text;
+  AsyncProcess1.Execute;
 end;
 
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: boolean);

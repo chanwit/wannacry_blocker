@@ -1,12 +1,12 @@
 object Form1: TForm1
-  Left = 570
-  Height = 406
-  Top = 304
-  Width = 483
+  Left = 415
+  Height = 465
+  Top = 100
+  Width = 526
   BorderStyle = bsToolWindow
   Caption = 'Block WannaCry / WannaDecrypt0r'
-  ClientHeight = 406
-  ClientWidth = 483
+  ClientHeight = 465
+  ClientWidth = 526
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnWindowStateChange = FormWindowStateChange
@@ -15,9 +15,9 @@ object Form1: TForm1
   LCLVersion = '1.6.4.0'
   object StaticText1: TStaticText
     Left = 20
-    Height = 16
+    Height = 14
     Top = 18
-    Width = 310
+    Width = 304
     AutoSize = True
     Caption = 'โปรแกรมป้องกันการเริ่มทำงานของ WannaCry / WannaDecrypt0r'
     TabOrder = 0
@@ -25,43 +25,134 @@ object Form1: TForm1
   object Button1: TButton
     Left = 20
     Height = 25
-    Top = 368
+    Top = 424
     Width = 75
     Caption = 'Minimize'
     OnClick = Button1Click
     TabOrder = 1
   end
-  object Memo1: TMemo
+  object PageControl1: TPageControl
     Left = 20
-    Height = 320
-    Top = 40
-    Width = 444
-    Lines.Strings = (
-      'วิธีใช้: '
-      '1. เปิดโปรแกรมค้างไว้ (ปิดได้ที่ tray icon)'
-      '2. ใส่โปรแกรมไว้ใน Startup Folder '
-      '3. โปรแกรมสามารถ disable SMB1 เพื่อป้องกันการแพร่ของ malware '
-      '(ต้องรันโปรแกรมแบบ Run as Administrator)'
-      ''
-      'โปรแกรมทำงานโดยการสร้าง Mutex ชื่อ'
-      '  "MsWinZonesCacheCounterMutexA"'
-      'แบบ global ที่สามารถเข้าถึงได้จากทุก process ขึ้นมาในระบบเพื่อหลอกไม่ให้ '
-      'malware WannaCry / WannaDecryptOr ทำงาน'
-      ''
-      '** โปรแกรมนี้ไม่สามารถกำจัด malware ได้ ทำได้เพียงป้องกันไม่ให้ malware ทำงาน **'
-      ''
-      'มีนักวิเคราะห์ด้านความปลอดภัยพบว่า code ภายในของ malware ตัวนี้มีการ'
-      'ตรวจสอบค่า Mutex ดังกล่าว ถ้าพบจะตัว malware จะไม่เริ่มทำงาน'
-      'อ้างอิง:'
-      'https://securelist.com/blog/incidents/78351/wannacry-'
-      'ransomware-used-in-widespread-attacks-all-over-the-world/'
-      ''
-      'พัฒนาโดย ห้องปฏิบัติการวิจัยไอยราคลัสเตอร์'
-      'มหาวิทยาลัยเทคโนโลยีสุรนารี'
-    )
-    ReadOnly = True
-    ScrollBars = ssVertical
+    Height = 360
+    Top = 48
+    Width = 484
+    ActivePage = TabSheet1
+    TabIndex = 0
     TabOrder = 2
+    object TabSheet1: TTabSheet
+      Caption = 'เกี่ยวกับโปรแกรม'
+      ClientHeight = 334
+      ClientWidth = 476
+      object Memo1: TMemo
+        Left = 0
+        Height = 334
+        Top = 0
+        Width = 476
+        Align = alClient
+        Lines.Strings = (
+          'โปรแกรม v5'
+          ''
+          'วิธีใช้:'
+          '1. เปิดโปรแกรมค้างไว้ (ปิดได้ที่ tray icon)'
+          '2. ใส่โปรแกรมไว้ใน Startup Folder '
+          '3. โปรแกรมจะ disable SMB1 อัตโนมัติเพื่อป้องกันการแพร่ของ malware '
+          '(ต้องรันโปรแกรมแบบ Run as Administrator)'
+          '4. โปรแกรมสามารถตรวจสอบช่องโหว่ได้ (ดูแท็บที่ 2: ตรวจสอบช่องโหว่)'
+          ''
+          'โปรแกรมทำงานโดยการสร้าง Mutex ชื่อ'
+          '  "MsWinZonesCacheCounterMutexA" และ'
+          '  "MsWinZonesCacheCounterMutexA0"'
+          'แบบ global ที่สามารถเข้าถึงได้จากทุก process ขึ้นมาในระบบเพื่อหลอกไม่ให้ '
+          'malware WannaCry / WannaDecryptOr ทำงาน'
+          ''
+          '** โปรแกรมนี้ไม่สามารถกำจัด malware ได้ ทำได้เพียงป้องกันไม่ให้ malware ทำงาน **'
+          ''
+          'มีนักวิเคราะห์ด้านความปลอดภัยพบว่า code ภายในของ malware ตัวนี้มีการ'
+          'ตรวจสอบค่า Mutex ดังกล่าว ถ้าพบจะตัว malware จะไม่เริ่มทำงาน'
+          'อ้างอิง:'
+          'https://securelist.com/blog/incidents/78351/wannacry-ransomware-used-in-widespread-'
+          'attacks-all-over-the-world/'
+          ''
+          'พัฒนาโดย ห้องปฏิบัติการวิจัยไอยราคลัสเตอร์'
+          'มหาวิทยาลัยเทคโนโลยีสุรนารี'
+        )
+        ReadOnly = True
+        ScrollBars = ssVertical
+        TabOrder = 0
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'ตรวจสอบช่องโหว่ที่ WannaCry ใช้เจาะ'
+      ClientHeight = 334
+      ClientWidth = 476
+      object Button2: TButton
+        Left = 248
+        Height = 25
+        Top = 46
+        Width = 75
+        Caption = '&Scan'
+        OnClick = Button2Click
+        TabOrder = 0
+      end
+      object SpinEdit1: TSpinEdit
+        Left = 16
+        Height = 21
+        Top = 46
+        Width = 50
+        MaxValue = 255
+        MinValue = 1
+        TabOrder = 1
+        Value = 192
+      end
+      object SpinEdit2: TSpinEdit
+        Left = 72
+        Height = 21
+        Top = 46
+        Width = 50
+        MaxValue = 255
+        MinValue = 1
+        TabOrder = 2
+        Value = 168
+      end
+      object SpinEdit3: TSpinEdit
+        Left = 128
+        Height = 21
+        Top = 46
+        Width = 50
+        MaxValue = 255
+        MinValue = 1
+        TabOrder = 3
+        Value = 1
+      end
+      object SpinEdit4: TSpinEdit
+        Left = 184
+        Height = 21
+        Top = 46
+        Width = 50
+        MaxValue = 255
+        MinValue = 1
+        TabOrder = 4
+        Value = 1
+      end
+      object Label1: TLabel
+        Left = 16
+        Height = 13
+        Top = 24
+        Width = 63
+        Caption = 'หมายเลข IP: '
+        ParentColor = False
+      end
+      object Memo2: TMemo
+        Left = 16
+        Height = 234
+        Top = 80
+        Width = 440
+        ReadOnly = True
+        ScrollBars = ssVertical
+        TabOrder = 5
+        WordWrap = False
+      end
+    end
   end
   object TrayIcon1: TTrayIcon
     PopUpMenu = PopupMenu1
@@ -4351,15 +4442,33 @@ object Form1: TForm1
       8001AC418001AC41C003AC41E007AC41F01FAC41
     }
     OnDblClick = TrayIcon1DblClick
-    left = 168
-    top = 152
+    left = 384
+    top = 184
   end
   object PopupMenu1: TPopupMenu
-    left = 240
-    top = 152
+    left = 384
+    top = 240
     object MenuItem2: TMenuItem
       Caption = '&Exit'
       OnClick = MenuItem2Click
     end
+  end
+  object AsyncProcess1: TAsyncProcess
+    Active = False
+    Options = [poWaitOnExit, poUsePipes, poStderrToOutPut]
+    Priority = ppNormal
+    StartupOptions = []
+    ShowWindow = swoNone
+    WindowColumns = 0
+    WindowHeight = 0
+    WindowLeft = 0
+    WindowRows = 0
+    WindowTop = 0
+    WindowWidth = 0
+    FillAttribute = 0
+    OnReadData = AsyncProcess1ReadData
+    OnTerminate = AsyncProcess1Terminate
+    left = 216
+    top = 232
   end
 end
