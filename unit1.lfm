@@ -50,7 +50,7 @@ object Form1: TForm1
         Width = 476
         Align = alClient
         Lines.Strings = (
-          'โปรแกรม v5'
+          'โปรแกรมรุ่น v5'
           ''
           'วิธีใช้:'
           '1. เปิดโปรแกรมค้างไว้ (ปิดได้ที่ tray icon)'
@@ -144,13 +144,21 @@ object Form1: TForm1
       end
       object Memo2: TMemo
         Left = 16
-        Height = 234
+        Height = 226
         Top = 80
         Width = 440
         ReadOnly = True
         ScrollBars = ssVertical
         TabOrder = 5
         WordWrap = False
+      end
+      object Label2: TLabel
+        Left = 16
+        Height = 13
+        Top = 312
+        Width = 419
+        Caption = 'https://github.com/RiskSense-Ops/MS17-010/blob/master/scanners/smb_ms17_010.py'
+        ParentColor = False
       end
     end
   end
@@ -4453,9 +4461,9 @@ object Form1: TForm1
       OnClick = MenuItem2Click
     end
   end
-  object AsyncProcess1: TAsyncProcess
+  object Process1: TProcess
     Active = False
-    Options = [poWaitOnExit, poUsePipes, poStderrToOutPut]
+    Options = []
     Priority = ppNormal
     StartupOptions = []
     ShowWindow = swoNone
@@ -4466,9 +4474,7 @@ object Form1: TForm1
     WindowTop = 0
     WindowWidth = 0
     FillAttribute = 0
-    OnReadData = AsyncProcess1ReadData
-    OnTerminate = AsyncProcess1Terminate
-    left = 216
-    top = 232
+    left = 152
+    top = 242
   end
 end
