@@ -68,7 +68,7 @@ object Form1: TForm1
           '** โปรแกรมนี้ไม่สามารถกำจัด malware ได้ ทำได้เพียงป้องกันไม่ให้ malware ทำงาน **'
           ''
           'มีนักวิเคราะห์ด้านความปลอดภัยพบว่า code ภายในของ malware ตัวนี้มีการ'
-          'ตรวจสอบค่า Mutex ดังกล่าว ถ้าพบจะตัว malware จะไม่เริ่มทำงาน'
+          'ตรวจสอบค่า Mutex ดังกล่าว ถ้าพบตัว malware จะไม่เริ่มทำงาน'
           'อ้างอิง:'
           'https://securelist.com/blog/incidents/78351/wannacry-ransomware-used-in-widespread-'
           'attacks-all-over-the-world/'
